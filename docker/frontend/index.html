@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Multi-tier App</title>
+</head>
+<body>
+  <h1>Frontend is running</h1>
+  <p id="status">Checking API...</p>
+
+  <script>
+    fetch("/api/health")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").innerText =
+          "API status: " + data.status;
+      })
+      .catch(() => {
+        document.getElementById("status").innerText =
+          "API not reachable";
+      });
+  </script>
+</body>
+</html>
