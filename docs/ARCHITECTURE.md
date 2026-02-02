@@ -176,3 +176,41 @@ Docker Swarm is introduced to demonstrate:
 
 Docker Swarm is initialized directly on the EC2 host.
 The node acts as both Manager and Worker for learning purposes.
+
+---
+
+### 11. Application Code Source (Swarm Demo)
+
+This project uses Docker’s **official Example Voting App** as a reference application for demonstrating Docker Swarm concepts.
+
+The application code is **not authored as part of this assignment**. Instead, prebuilt images are pulled from Docker Hub and deployed as Swarm services. This ensures the focus remains on **orchestration, service replication, and networking**, rather than application development.
+
+**Images used:**
+
+* `dockersamples/examplevotingapp_vote` — frontend voting UI
+* `dockersamples/examplevotingapp_worker` — backend worker service
+* `redis:alpine` — in-memory datastore
+
+**Conceptual data flow:**
+
+```
+Browser
+  |
+  v
+Frontend (vote service)
+  |
+  v
+Redis (ephemeral store)
+  |
+  v
+Worker (processes votes)
+```
+
+The UI displays the container ID handling each request, which visually confirms:
+
+* load balancing across replicas
+* Swarm service scheduling
+* routing mesh functionality
+
+This approach mirrors real-world practice where infrastructure and orchestration are validated independently of application source code.
+
