@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   frontend:
-    image: your-frontend-image
+    image: dockersamples/examplevotingapp_vote
     ports:
       - "8080:80"
     networks: [app-net]
@@ -10,17 +10,13 @@ services:
       replicas: 2
 
   api:
-    image: your-api-image
+    image: dockersamples/examplevotingapp_worker
     networks: [app-net]
     deploy:
       replicas: 2
 
   db:
-    image: mysql:8
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-    volumes:
-      - db-data:/var/lib/mysql
+    image: redis:alpine
     networks: [app-net]
     deploy:
       replicas: 1
@@ -28,6 +24,3 @@ services:
 networks:
   app-net:
     driver: overlay
-
-volumes:
-  db-data:
