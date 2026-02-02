@@ -99,3 +99,73 @@ Host configuration (Ansible):
 - Installs Docker Engine and Docker Compose (plugin)
 - Starts Docker daemon
 - Grants non-root docker access (docker group)
+
+---
+### 6. Architectural Evolution: Docker Swarm
+
+This project evolves from Docker Compose to Docker Swarm to introduce
+service orchestration concepts such as replicas, self-healing, and
+declarative service management.
+
+Docker Swarm is enabled directly on the EC2 host. The node acts as both
+Manager and Worker, which is sufficient for learning and demonstration
+purposes while preserving the same architectural principles used in
+larger clusters.
+
+---
+
+### 7. Swarm-Oriented System Architecture
+
+```
+Local Machine
+|
+| terraform apply
+v
+AWS Infrastructure
+|
+| ansible-playbook
+v
+EC2 Host
+|
+| docker swarm init
+v
+Docker Swarm (Manager + Worker)
+|
+| docker stack deploy
+v
+Swarm Services
+|-- frontend (replicas)
+|-- api (replicas)
+|-- database (1 replica, persistent)
+|-- visualizer
+```
+
+Mental Model: Swarm on EC2
+
+```
+EC2
+├─ Docker Engine
+├─ Swarm Mode (enabled)
+└─ Services (not containers)
+```
+---
+
+### 8. State Management and Scaling Model
+
+- Frontend and API services are stateless and may be replicated.
+- The database runs as a single-replica service and acts as the system’s
+  single source of truth.
+- State consistency is maintained at the database layer, not at the
+  container or node level.
+
+---
+
+### 9. Why Docker Swarm
+
+Docker Swarm is introduced to demonstrate:
+
+- Declarative service management
+- Horizontal scaling via replicas
+- Automatic task rescheduling
+- Built-in service discovery
+- Cluster-level monitoring via Docker Visualizer
