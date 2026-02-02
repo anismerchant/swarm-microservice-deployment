@@ -169,3 +169,10 @@ Docker Swarm is introduced to demonstrate:
 - Automatic task rescheduling
 - Built-in service discovery
 - Cluster-level monitoring via Docker Visualizer
+
+---
+
+### 10. Swarm Initialization
+
+Docker Swarm is initialized directly on the EC2 host.
+The node acts as both Manager and Worker for learning purposes.
